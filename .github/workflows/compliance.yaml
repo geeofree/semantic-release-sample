@@ -1,0 +1,59 @@
+name: Example Workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint-commits:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - uses: actions/cache@v3
+      name: Cache Node Packages
+      id: cache-npm
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install Packages
+      run: npm install
+
+    - name: Lint Commit
+      env:
+        BASE_COMMIT: ${{ github.event.pull_request.base.sha }}
+      run: npx commitlint -f $BASE_COMMIT
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/cache@v3
+      name: Cache Node Packages
+      id: cache-npm
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Install Packages
+      run: npm install
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Run Tests
+      run: npm test
