@@ -4,7 +4,7 @@ describe("Math", () => {
   test("add(1, 1) = 2", () => {
     expect(math.add(1, 1)).toBe(2);
   });
-  test("add(2, 1) = 1", () => {
-    expect(math.add(2, 1)).toBe(1);
+  test("sub(2, 1) = 1", () => {
+    expect(math.sub(2, 1)).toBe(1);
   });
 });
