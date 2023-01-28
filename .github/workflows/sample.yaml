@@ -2,6 +2,7 @@ name: Example Workflow
 
 env:
   RELEASE_BRANCH: ${{ github.base_ref }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 on:
   pull_request:
