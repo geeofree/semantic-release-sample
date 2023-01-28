@@ -39,4 +39,4 @@ jobs:
         node-version: '18'
 
     - name: Release
-      run: npx semantic-release -d --branches $RELEASE_BRANCH
+      run: npx semantic-release --branches $RELEASE_BRANCH
