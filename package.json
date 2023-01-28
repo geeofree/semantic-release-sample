@@ -1,0 +1,23 @@
+{
+  "name": "semantic-release-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geeofree/semantic-release-sample.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geeofree/semantic-release-sample/issues"
+  },
+  "homepage": "https://github.com/geeofree/semantic-release-sample#readme",
+  "devDependencies": {
+    "semantic-release": "^20.1.0"
+  }
+}
