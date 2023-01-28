@@ -10,11 +10,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - uses: actions/cache@v3
+      name: Cache Node Packages
+      id: cache-npm
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install Packages
+      run: npm install
 
     - name: Lint Commit
       env:
-        BASE_BRANCH: ${{ github.base_ref }}
-      run: git log "origin/$BASE_BRANCH"..HEAD --pretty='format:%s' | npx commitlint
+        BASE_COMMIT: ${{ github.event.pull_request.base.sha }}
+      run: npx commitlint -f $BASE_COMMIT
 
   test:
     runs-on: ubuntu-latest
@@ -35,7 +53,7 @@ jobs:
 
     - uses: actions/setup-node@v3
       with:
-        node-version: '14'
+        node-version: '16'
 
     - name: Run Tests
       run: npm test
