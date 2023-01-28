@@ -2,16 +2,30 @@ name: Example Workflow
 
 on:
   pull_request:
-    types: 
-      - opened
-      - assigned
-      - reopened
     branches:
       - main
 
 jobs:
-  log:
+  test:
     runs-on: ubuntu-latest
     steps:
-    - name: Log Something
-      run: echo "something"
+    - uses: actions/checkout@v3
+
+    - uses: actions/cache@v3
+      name: Cache Node Packages
+      id: cache-npm
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Install Packages
+      run: npm install
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Run Tests
+      run: npm test
