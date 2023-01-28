@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/geeofree/semantic-release-sample#readme",
   "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "jest": "^29.4.1"
   }
 }
