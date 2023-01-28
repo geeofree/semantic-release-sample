@@ -1,0 +1,17 @@
+name: Example Workflow
+
+on:
+  pull_request:
+    types: 
+      - opened
+      - assigned
+      - reopened
+    branches:
+      - main
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Log Something
+      run: echo "something"
