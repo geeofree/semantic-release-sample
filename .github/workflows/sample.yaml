@@ -1,16 +1,12 @@
 name: Example Workflow
 
-env:
-  RELEASE_BRANCH: ${{ github.base_ref }}
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
 on:
   pull_request:
     branches:
       - main
 
 jobs:
-  release:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -33,10 +29,3 @@ jobs:
 
     - name: Run Tests
       run: npm test
-
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    - name: Release
-      run: npx semantic-release --branches $RELEASE_BRANCH

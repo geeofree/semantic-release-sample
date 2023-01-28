@@ -1,0 +1,21 @@
+name: Release
+
+env:
+  RELEASE_BRANCH: ${{ github.ref_name }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Release
+      run: npx semantic-release --branches $RELEASE_BRANCH
